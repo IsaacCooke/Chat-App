@@ -8,6 +8,7 @@ mod models {
     pub mod users;
 }
 mod resolvers {
+    pub mod graphql_schema;
     pub mod users_resolver;
 }
 
