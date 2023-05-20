@@ -1,5 +1,4 @@
-use async_graphql::{Context, Object, Result, Data, Schema, EmptySubscription};
-use serde::Deserialize;
+use async_graphql::{Context, Object, Result, Schema, EmptySubscription};
 use crate::resolvers::users_resolver;
 use crate::models::users::User;
 
@@ -45,6 +44,10 @@ impl MutationRoot {
     }
     async fn delete_user(&self, _ctx: &Context<'_>, id: i32) -> Result<User> {
         let user = users_resolver::delete_user(id);
+        Ok(user)
+    }
+    async fn deactivate_user(&self, _ctx: &Context<'_>, id: i32) -> Result<User> {
+        let user = users_resolver::deactivate_user(id);
         Ok(user)
     }
     async fn activate_user(&self, _ctx: &Context<'_>, id: i32) -> Result<User> {
