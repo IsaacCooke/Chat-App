@@ -1,7 +1,6 @@
 use diesel::prelude::*;
 use crate::models::users::{User, NewUser};
 use crate::data::postgresql::establish_connection;
-use crate::schema::users::first_name;
 
 pub fn get_users() -> Vec<User> {
     use crate::schema::users::dsl::*;
@@ -105,11 +104,28 @@ pub fn update_user(
         .expect("Error saving new user")
 }
 
+pub fn delete_user(param_id: i32) -> User {
+    use crate::schema::users::dsl::*;
+    let connection = &mut establish_connection();
+    diesel::delete(users.find(param_id))
+        .get_result(connection)
+        .expect("Error saving new user")
+}
+
 pub fn deactivate_user(param_id: i32) -> User {
     use crate::schema::users::dsl::*;
     let connection = &mut establish_connection();
     diesel::update(users.find(param_id))
         .set(active.eq(false))
+        .get_result(connection)
+        .expect("Error saving new user")
+}
+
+pub fn activate_user(param_id: i32) -> User {
+    use crate::schema::users::dsl::*;
+    let connection = &mut establish_connection();
+    diesel::update(users.find(param_id))
+        .set(active.eq(true))
         .get_result(connection)
         .expect("Error saving new user")
 }

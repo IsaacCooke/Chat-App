@@ -1,6 +1,5 @@
 use diesel::prelude::*;
 use async_graphql::{Object, types::ID};
-use diesel::sql_types::Date;
 use crate::schema::users;
 
 #[derive(Queryable)]
@@ -11,14 +10,12 @@ pub struct User {
     pub email: String,
     pub password: String,
     pub phone: String,
-    pub created_at: Date,
-    pub updated_at: Date,
-    pub active: bool,
-    pub superuser: bool,
+    pub active: Option<bool>,
+    pub superuser: Option<bool>,
 }
 
 #[derive(Insertable, AsChangeset)]
-#[diesel(table_name = "users")]
+#[diesel(table_name = users)]
 pub struct NewUser {
     pub first_name: String,
     pub last_name: String,
@@ -49,16 +46,10 @@ impl User {
     pub async fn phone(&self) -> &str {
         &self.phone
     }
-    pub async fn created_at(&self) -> &Date {
-        &self.created_at
-    }
-    pub async fn updated_at(&self) -> &Date {
-        &self.updated_at
-    }
-    pub async fn active(&self) -> bool {
+    pub async fn active(&self) -> Option<bool> {
         self.active
     }
-    pub async fn superuser(&self) -> bool {
+    pub async fn superuser(&self) -> Option<bool> {
         self.superuser
     }
 }
