@@ -10,6 +10,8 @@ pub struct User {
     pub email: String,
     pub password: String,
     pub phone: String,
+    pub created_at: Option<chrono::NaiveDateTime>,
+    pub updated_at: Option<chrono::NaiveDateTime>,
     pub active: Option<bool>,
     pub superuser: Option<bool>,
 }
@@ -45,6 +47,12 @@ impl User {
     }
     pub async fn phone(&self) -> &str {
         &self.phone
+    }
+    pub async fn created_at(&self) -> Option<chrono::NaiveDateTime> {
+        self.created_at
+    }
+    pub async fn updated_at(&self) -> Option<chrono::NaiveDateTime> {
+        self.updated_at
     }
     pub async fn active(&self) -> Option<bool> {
         self.active

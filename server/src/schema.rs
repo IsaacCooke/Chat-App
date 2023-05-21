@@ -8,6 +8,8 @@ diesel::table! {
         email -> Varchar,
         password -> Varchar,
         phone -> Varchar,
+        created_at -> Nullable<Timestamp>,
+        updated_at -> Nullable<Timestamp>,
         active -> Nullable<Bool>,
         superuser -> Nullable<Bool>,
     }
