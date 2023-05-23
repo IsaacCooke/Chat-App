@@ -7,6 +7,8 @@ mod data {
 }
 mod models {
     pub mod users;
+    pub mod message;
+    pub mod chat;
 }
 mod resolvers {
     pub mod graphql_schema;
