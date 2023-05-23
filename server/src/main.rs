@@ -3,6 +3,7 @@ mod schema;
 
 mod data {
     pub mod postgresql;
+    pub mod mongodb;
 }
 mod models {
     pub mod users;
